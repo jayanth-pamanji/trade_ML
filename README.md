@@ -1,148 +1,116 @@
-```markdown
 # Trader Behavior vs Bitcoin Market Sentiment  
-### Data Science Assignment – Web3 Trading Team  
-**Author: Jayanth**
+Author: Jayanth
+
+## Overview
+This project analyzes how trader behavior on Hyperliquid changes with Bitcoin market sentiment (Fear, Neutral, Greed).  
+Two datasets were used:
+
+- Hyperliquid historical trades  
+- Bitcoin Fear & Greed Index  
+
+The goal is to understand how sentiment affects trade size, volume, win rate, and profitability.
+
+All work was completed in a single Google Colab notebook.
 
 ---
 
-## 📌 Project Overview
+## Folder Structure
 
-This project analyzes how **trader behavior** on Hyperliquid changes with **Bitcoin market sentiment** (Fear, Neutral, Greed).  
-The study combines two datasets:
-
-- **Hyperliquid Historical Trader Data**  
-- **Bitcoin Fear & Greed Index**
-
-The objective is to understand:
-
-- How trade size, volume, and profitability change with sentiment  
-- Whether traders perform better during Fear or Greed  
-- Behavior patterns that can help build smarter trading and risk-management strategies  
-
-All work was completed in **a single Google Colab notebook** for clean and streamlined workflow.
-
----
-
-## 📂 Folder Structure
-
-```
-
-ds_jayanth/
-├── notebook.ipynb                     # Single notebook containing all work
-├── csv_files/
-│   ├── hyperliquid_raw.csv            # Raw trades data
-│   ├── fear_greed_raw.csv             # Raw sentiment data
-│   ├── trades_clean.csv               # Cleaned trades dataset
-│   ├── sentiment_clean.csv            # Cleaned sentiment dataset
-│   └── merged_trades_sentiment.csv    # Final merged dataset
-├── outputs/
-│   ├── avg_pnl_by_sentiment.png
-│   ├── win_rate_by_sentiment.png
-│   ├── avg_notional_by_sentiment.png
-│   ├── total_volume_by_sentiment.png
-│   ├── buy_vs_sell_by_sentiment.png
-│   └── additional charts
-├── ds_report.pdf                      # Final insights report
+ds_jayanth/  
+├── notebook.ipynb  
+├── csv_files/  
+│   ├── hyperliquid_raw.csv  
+│   ├── fear_greed_raw.csv  
+│   ├── trades_clean.csv  
+│   ├── sentiment_clean.csv  
+│   └── merged_trades_sentiment.csv  
+├── outputs/  
+│   ├── avg_pnl_by_sentiment.png  
+│   ├── win_rate_by_sentiment.png  
+│   ├── avg_notional_by_sentiment.png  
+│   ├── total_volume_by_sentiment.png  
+│   └── buy_vs_sell_by_sentiment.png  
+├── ds_report.pdf  
 └── README.md
 
-```
-
 ---
 
-## 📊 Dataset Details
+## Data Used
 
-### **1. Hyperliquid Trades Dataset**
-Includes fields:
-- account, coin  
+### Hyperliquid Trades Dataset  
+Important fields:
+- account  
+- coin  
 - execution_price  
-- size_tokens, size_usd  
-- side (BUY/SELL)  
+- size_usd  
+- side  
 - timestamp_ist  
 - closed_pnl  
-- fee  
 
-### **Engineered Features**
+Engineered fields:
 - date  
 - notional_usd  
 - is_profitable  
 - direction_num  
 - risk_exposure  
 
----
-
-### **2. Bitcoin Fear & Greed Index**
-Includes:  
-- timestamp  
-- value (0–100)  
-- classification  
+### Fear & Greed Index  
+Fields:
 - date  
+- value  
+- classification  
 
-### **Sentiment Groups Used**
-- Fear      → Extreme Fear + Fear  
-- Neutral   → Neutral  
-- Greed     → Greed + Extreme Greed  
-
-Added columns:  
-- sentiment_group  
-- sentiment_binary  
+Mapped into 3 groups:
+- Fear  
+- Neutral  
+- Greed  
 
 ---
 
-## 🔧 Steps Performed (Single Notebook Workflow)
+## Steps Performed
 
-In a single notebook, the following steps were completed:
-
-### **Data Cleaning**
-- Standardized column names  
-- Parsed timestamps and extracted date  
-- Converted numeric fields  
-- Cleaned sentiment classification  
-- Mapped sentiment into 3 groups  
-
-### **Feature Engineering**
-- Created notional_usd  
-- Added is_profitable (pnl > 0)  
-- Added direction_num (BUY=1, SELL=−1)  
-- Added risk_exposure  
-
-### **Merging**
-- Trades merged with sentiment on date  
-- Created final dataset for analysis  
-
-### **Analysis & Visualization**
-Generated these charts:
-
-- Average PnL by sentiment  
-- Win rate by sentiment  
-- Average position size  
-- Total trading volume  
-- BUY vs SELL distribution  
-
-All plots saved to `outputs/`.
-
-### **Saving Files**
-- All cleaned CSVs saved into `csv_files/`  
-- All charts saved into `outputs/`  
+1. Loaded and cleaned both datasets  
+2. Engineered new features  
+3. Merged trades with sentiment using the date  
+4. Calculated metrics such as:
+   - average PnL  
+   - win rate  
+   - average trade size  
+   - total volume  
+5. Created visualizations and saved them to the outputs folder  
+6. Generated final PDF report
 
 ---
 
-## 📈 Key Insights
+## Key Insights
 
-### **1. Profitability**
-- Greed days show the **highest average PnL**  
-- Win rate is also highest in Greed  
-- Traders perform best during optimistic market sentiment  
+- Greed days have the highest win rate and average PnL  
+- Fear days have the largest trade sizes and highest total volume  
+- Neutral days show the lowest activity and lowest performance  
+- BUY and SELL behavior changes significantly with sentiment  
 
-### **2. Position Size**
-- Fear days show **largest average trade size (~$7,182)**  
-- Traders take more aggressive risks during fearful/volatile markets  
+---
 
-### **3. Volume**
-- Fear has the **highest total notional (~$598M)**  
-- Neutral has the lowest activity  
+## How to Run
 
-### **4. BUY vs SELL**
-- Fear → BUY ≈ SELL (panic selling + dip buying)  
-- Greed → more SELL (profit-taking)  
-- Neutral → lowest activity  
+1. Open notebook.ipynb in Google Colab  
+2. Upload raw CSVs into the `csv_files` folder  
+3. Run all cells  
+4. Check outputs/ for charts  
+5. Read final insights in ds_report.pdf
+
+---
+
+## Requirements
+
+- Python  
+- pandas  
+- numpy  
+- matplotlib  
+- seaborn  
+
+(All available in Google Colab)
+
+---
+
 
